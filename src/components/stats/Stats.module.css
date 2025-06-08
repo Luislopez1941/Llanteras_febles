@@ -1,0 +1,167 @@
+/* components/stats.module.css */
+.statsSection {
+  padding: 6rem 1.5rem;
+  position: relative;
+  background: #050505; /* Un fondo negro casi puro */
+  border-top: 1px solid rgba(255, 87, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 87, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Fondo de "flujo de datos" animado */
+.statsSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 87, 0, 0.15) 0.5px, transparent 0.5px);
+  background-size: 15px 15px;
+  opacity: 0.5;
+  animation: move-dots 30s linear infinite;
+  z-index: 0;
+}
+
+@keyframes move-dots {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 30px 30px;
+  }
+}
+
+.container {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+.statItem {
+  --spotlight-color: rgba(255, 87, 0, 0.15);
+  --border-color: rgba(255, 87, 0, 0.3);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background: rgba(15, 15, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+
+  /* Estado inicial para animación de entrada */
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+/* Efecto de spotlight que sigue al mouse */
+.statItem::before {
+  content: "";
+  position: absolute;
+  top: var(--mouse-y);
+  left: var(--mouse-x);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--spotlight-color) 0%, transparent 60%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.statItem:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border-color);
+}
+
+.statItem:hover::before {
+  opacity: 1;
+}
+
+.statIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(145deg, rgba(255, 87, 0, 0.1), rgba(255, 87, 0, 0.2));
+  border-radius: 12px;
+  border: 1px solid rgba(255, 87, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+.statIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: #ff8c42;
+  transition: transform 0.4s ease;
+}
+
+.statItem:hover .statIconWrapper {
+  background: linear-gradient(145deg, rgba(255, 87, 0, 0.2), rgba(255, 87, 0, 0.3));
+  box-shadow: 0 0 20px rgba(255, 87, 0, 0.2);
+}
+
+.statItem:hover .statIcon {
+  transform: scale(1.1);
+}
+
+.statNumber {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background-image: linear-gradient(to right, #ff8c42, #ffaf7a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: text-shadow 0.4s ease;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .statNumber {
+    font-size: 3rem;
+  }
+}
+
+.statItem:hover .statNumber {
+  text-shadow: 0 0 15px rgba(255, 140, 66, 0.4);
+}
+
+.statLabel {
+  color: #a0aec0;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.4s ease;
+}
+
+@media (min-width: 768px) {
+  .statLabel {
+    font-size: 1rem;
+  }
+}
+
+.statItem:hover .statLabel {
+  color: #ffffff;
+}

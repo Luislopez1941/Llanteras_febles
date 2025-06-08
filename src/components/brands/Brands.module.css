@@ -1,0 +1,164 @@
+/* components/brands.module.css */
+.brandsSection {
+  padding: 6rem 1.5rem;
+  position: relative;
+  background: linear-gradient(180deg, #080808 0%, #000000 100%);
+  overflow: hidden;
+}
+
+/* Patrón de fondo geométrico sutil */
+.brandsSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff5700' fill-opacity='0.03'%3E%3Cpath d='M30 0h30v30H30zM0 30h30v30H0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative; /* Para que el contenido esté sobre el ::before */
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  opacity: 0; /* Estado inicial para animación global */
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 3.25rem;
+  }
+}
+
+.titleHighlight {
+  background-image: linear-gradient(to right, #ff5700, #ff8c42);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #a0aec0;
+  max-width: 45rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  /* Optimizado para móviles: 2 columnas, luego más en pantallas grandes */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem; /* Espacio entre tarjetas */
+}
+
+@media (min-width: 500px) {
+  /* 3 columnas en tablets pequeñas */
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  /* 4 columnas en desktop */
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+.brandCardWrapper {
+  opacity: 0; /* Estado inicial para animación global */
+}
+
+.brandCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px; /* Altura fija para consistencia */
+  padding: 1rem;
+  background: rgba(25, 30, 45, 0.5); /* Fondo de vidrio oscuro */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Para el borde brillante */
+}
+
+/* Borde brillante en hover */
+.brandCard::after {
+  content: "";
+  position: absolute;
+  inset: -1px; /* Para que el borde esté "fuera" */
+  border-radius: 12px; /* Mismo redondeo */
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    rgba(255, 87, 0, 0.5) 0%,
+    rgba(255, 140, 66, 0.3) 50%,
+    rgba(255, 87, 0, 0.5) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1; /* Detrás del contenido de la tarjeta */
+  animation: spin-border 5s linear infinite paused; /* Pausada por defecto */
+}
+
+@keyframes spin-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.brandCard:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: rgba(255, 87, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(255, 87, 0, 0.1);
+}
+
+.brandCard:hover::after {
+  opacity: 1;
+  animation-play-state: running; /* Inicia la animación del borde en hover */
+}
+
+.brandName {
+  font-size: 1.1rem; /* Ajustado para mejor legibilidad en tarjetas pequeñas */
+  font-weight: 600;
+  text-align: center;
+  color: #e0e0e0;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .brandName {
+    font-size: 1.25rem;
+  }
+}
+
+.brandCard:hover .brandName {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 140, 66, 0.5);
+}
+
+.footerText {
+  margin-top: 4rem;
+  text-align: center;
+  color: #8c9bad;
+  font-size: 0.95rem;
+  opacity: 0; /* Estado inicial para animación global */
+}

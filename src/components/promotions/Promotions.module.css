@@ -1,0 +1,286 @@
+/* components/promotions.module.css */
+.promotionsSection {
+  padding: 5rem 1.5rem 6rem; /* Más padding inferior */
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 87, 0, 0.12), transparent 60%), /* Más pronunciado */
+    linear-gradient(to bottom, #0a0a0a, #000000); /* Fondo más oscuro */
+  position: relative;
+  overflow: hidden; /* Para contener efectos */
+}
+
+.container {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem; /* Un poco más de espacio */
+  opacity: 0;
+}
+
+.title {
+  font-size: 2.25rem; /* Ligeramente más pequeño para móviles por defecto */
+  font-weight: 800; /* Más bold */
+  margin-bottom: 1rem;
+  color: #fff;
+  /* La animación 'animate-glow' se aplica desde globals.css si es necesario */
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 3.5rem; /* Más grande en desktop */
+  }
+}
+
+.titleHighlight {
+  background-image: linear-gradient(to right, #ff5700, #ff8c42);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 0 0.25em; /* Espacio para el glow */
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #b0bec5; /* Un gris azulado más claro */
+  max-width: 45rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem; /* Espacio entre tarjetas */
+  grid-template-columns: 1fr; /* 1 columna por defecto para móviles */
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Ajuste para tarjetas más grandes */
+    gap: 2.5rem;
+  }
+}
+
+.promoCardWrapper {
+  opacity: 0;
+}
+
+.promoCard {
+  --spotlight-color-orange: rgba(255, 87, 0, 0.2);
+  --border-color-orange: rgba(255, 87, 0, 0.5);
+  --spotlight-color-gray: rgba(156, 163, 175, 0.2);
+  --border-color-gray: rgba(156, 163, 175, 0.5);
+
+  --spotlight-color: var(--spotlight-color-orange); /* Default a naranja */
+  --border-color: var(--border-color-orange);
+
+  position: relative;
+  border-radius: 18px; /* Más redondeado */
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  background-color: rgba(20, 25, 38, 0.7); /* Fondo más oscuro y translúcido */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 320px; /* Altura mínima para consistencia */
+}
+
+.grayTheme {
+  --spotlight-color: var(--spotlight-color-gray);
+  --border-color: var(--border-color-gray);
+}
+
+/* Efecto de pulso para tarjetas destacadas */
+.featuredCard {
+  animation: pulse-border 2.5s infinite ease-in-out;
+  box-shadow: 0 0 25px rgba(255, 87, 0, 0.15); /* Sombra inicial para destacada */
+}
+
+@keyframes pulse-border {
+  0% {
+    border-color: rgba(255, 87, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 87, 0, 0.1);
+  }
+  50% {
+    border-color: rgba(255, 87, 0, 0.6);
+    box-shadow: 0 0 30px rgba(255, 87, 0, 0.25);
+  }
+  100% {
+    border-color: rgba(255, 87, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 87, 0, 0.1);
+  }
+}
+
+.promoCard::before {
+  /* Spotlight */
+  content: "";
+  position: absolute;
+  top: var(--mouse-y);
+  left: var(--mouse-x);
+  width: 350px; /* Más pequeño para móviles */
+  height: 350px;
+  background: radial-gradient(circle, var(--spotlight-color) 0%, transparent 65%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.promoCard::after {
+  /* Data stream background */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--border-color) 0.3px, transparent 0.3px);
+  background-size: 12px 12px; /* Más pequeño y denso */
+  opacity: 0.05; /* Muy sutil */
+  animation: move-dots 25s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes move-dots {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 24px 24px;
+  }
+}
+
+.promoCard:hover {
+  transform: translateY(-10px) scale(1.02); /* Más elevación en hover */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.promoCard:hover::before {
+  opacity: 1;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem; /* Menos padding en móvil */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 18px; /* Heredar redondeo */
+  transition: border-color 0.4s ease;
+}
+
+@media (min-width: 768px) {
+  .cardContent {
+    padding: 2rem; /* Padding original para desktop */
+  }
+  .promoCard::before {
+    /* Spotlight más grande en desktop */
+    width: 450px;
+    height: 450px;
+  }
+}
+
+.promoCard:hover .cardContent {
+  border: 1px solid var(--border-color); /* Borde visible solo en hover */
+}
+
+.promoHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.promoIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--border-color); /* Color del ícono basado en el tema */
+  flex-shrink: 0;
+}
+
+.promoTitle {
+  font-size: 1.375rem;
+  font-weight: 700; /* Más bold */
+  color: #ffffff;
+  transition: text-shadow 0.4s ease, color 0.4s ease;
+}
+
+.promoCard:hover .promoTitle {
+  text-shadow: 0 0 18px var(--spotlight-color);
+  color: #fff; /* Asegurar que sea blanco brillante */
+}
+.grayTheme:hover .promoTitle {
+  /* Para que el título gris también brille */
+  color: #fff;
+}
+
+.promoDescription {
+  color: #b0bec5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+
+.promoFooter {
+  display: flex;
+  flex-direction: column; /* Apilado en móvil */
+  align-items: flex-start; /* Alineado a la izquierda en móvil */
+  gap: 0.75rem; /* Espacio entre elementos del footer */
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  /* En pantallas más grandes, vuelve a ser en línea */
+  .promoFooter {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.validUntil {
+  font-size: 0.85rem;
+  color: #8c9bad; /* Un poco más oscuro */
+  font-style: italic;
+}
+
+.ctaLink {
+  color: #ff8c42;
+  transition: all 0.3s ease;
+  display: inline-flex; /* Para que el padding funcione bien */
+  align-items: center;
+  gap: 0.5rem; /* Más espacio para el ícono */
+  font-weight: 600; /* Más bold */
+  padding: 0.5rem 0.75rem; /* Padding para hacerlo más "botón" */
+  border-radius: 8px;
+  border: 1px solid transparent; /* Para transición suave */
+  align-self: flex-start; /* Para que no ocupe todo el ancho en flex-column */
+}
+
+@media (min-width: 640px) {
+  .ctaLink {
+    align-self: auto; /* Reset para layout en fila */
+  }
+}
+
+.ctaLink:hover {
+  color: #ffffff;
+  background-color: var(--border-color); /* Usa el color del borde del tema */
+  border-color: var(--border-color);
+  text-shadow: 0 0 12px var(--spotlight-color);
+  transform: scale(1.05);
+}
+
+.ctaIcon {
+  transition: transform 0.3s ease;
+  width: 18px; /* Ícono ligeramente más grande */
+  height: 18px;
+}
+
+.ctaLink:hover .ctaIcon {
+  transform: translateX(5px);
+}
