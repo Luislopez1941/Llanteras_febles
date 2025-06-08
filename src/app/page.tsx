@@ -11,7 +11,7 @@ import Testimonials from "@/components/testimonial/Testimonials";
 import Faq from "@/components/faq/Faq";
 import ContactForm from "@/components/contact/Contact-form";
 import Footer from "@/components/footer/Footer";
-import AiDiagnosis from "@/components/ai-diagnosis.tsx/Ai-diagnosis";
+import AiDiagnosis from "@/components/Diagnosis.tsx/Ai-diagnosis";
 
 export default function Home() {
   return (
