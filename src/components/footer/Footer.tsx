@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { Phone, Mail, MapPin } from "lucide-react"
-import styles from "./Footer.module.css" // Import CSS Module
+import styles from "./Footer.module.css"
+import Image from 'next/image'
+import logo from '../../assets/logo.png'
 
 export default function Footer() {
   return (
@@ -9,10 +11,7 @@ export default function Footer() {
         <div className={styles.grid}>
           <div className={styles.companyInfo}>
             <div className={styles.logoContainer}>
-              <div className={styles.logoIconWrapper}>
-                <div className={styles.logoIconInner}></div>
-              </div>
-              <span className={styles.logoText}>LLANTERAS FEBLES</span>
+              <Image src={logo} alt="Logo" width={150} height={50} />
             </div>
             <p className={styles.companyDescription}>
               Líderes en venta e instalación de llantas premium. Más de 15 años brindando calidad y confianza a nuestros

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Phone, Menu, X } from "lucide-react"
 import styles from './Header.module.css';
+import Image from 'next/image'
+import logo from '../../assets/logo.png'
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false)
@@ -17,10 +19,7 @@ export default function Hero() {
     <nav className={`${styles.navbar} ${isVisible ? styles.navbarVisible : ""}`}>
       <div className={styles.container}>
         <div className={styles.logoContainer}>
-          <div className={styles.logoIconWrapper}>
-            <div className={styles.logoIconInner}></div>
-          </div>
-          <span className={styles.logoText}>LLANTERAS FEBLES</span>
+          <Image src={logo} alt="Logo" width={150} height={50} />
         </div>
 
         <div className={styles.navLinks}>

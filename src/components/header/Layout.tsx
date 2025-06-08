@@ -25,9 +25,9 @@ export default function Layout() {
       <div className={`${styles.blurElement2} animate-float-delayed`}></div>
 
       <div ref={contentRef} className={`${styles.content} ${contentInView ? 'animate-fade-in-up' : ''}`} style={{animationDelay: '0.1s'}}>
-        <div ref={tagRef} className={`${styles.tag} ${tagInView ? 'animate-fade-in-up' : 'reveal-on-scroll'}`} style={{animationDelay: '0.2s'}}>
+        {/* <div ref={tagRef} className={`${styles.tag} ${tagInView ? 'animate-fade-in-up' : 'reveal-on-scroll'}`} style={{animationDelay: '0.2s'}}>
           <span className={styles.tagText}>🏆 Líderes en Llantas Premium</span>
-        </div>
+        </div> */}
 
         <h1 ref={titleRef} className={`${styles.title} ${titleInView ? 'animate-text-reveal' : 'reveal-on-scroll'}`} style={{animationDelay: '0.4s'}}>
           Llanteras
