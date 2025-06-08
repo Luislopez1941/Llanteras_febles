@@ -21,8 +21,10 @@ export default function ParticlesBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const particlesArray = useRef<Particle[]>([])
   const mousePosition = useRef({ x: -9999, y: -9999 })
-  const animationFrameId = useRef<number>()
-  const debounceTimer = useRef<NodeJS.Timeout>()
+  const animationFrameId = useRef<number | null>(null)
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+
 
   const createParticle = useCallback((canvas: HTMLCanvasElement): Particle => {
     const size = Math.random() * 3 + 2 // tamaño entre 2 y 5 px
@@ -143,7 +145,9 @@ export default function ParticlesBackground() {
     }
 
     const debouncedResize = () => {
-      clearTimeout(debounceTimer.current)
+      if (debounceTimer.current !== null) {
+        clearTimeout(debounceTimer.current); // ✅ seguro
+      }
       debounceTimer.current = setTimeout(performResize, 250)
     }
 
@@ -171,7 +175,9 @@ export default function ParticlesBackground() {
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("load", initialSetup)
       if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current)
-      clearTimeout(debounceTimer.current)
+      if (debounceTimer.current !== null) {
+        clearTimeout(debounceTimer.current); // ✅ seguro
+      }
     }
   }, [initParticles, drawParticles])
 

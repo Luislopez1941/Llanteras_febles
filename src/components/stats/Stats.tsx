@@ -62,7 +62,8 @@ export default function Stats() {
     brands: 0,
   })
 
-  const animationFrameId = useRef<number>()
+const animationFrameId = useRef<number | null>(null);
+
   const startTimeRef = useRef<number | null>(null)
 
   // Usamos `useRef` para los valores objetivo para evitar que el `useEffect` se vuelva a ejecutar innecesariamente.
